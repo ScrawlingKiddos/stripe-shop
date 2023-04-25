@@ -1,0 +1,111 @@
+@import url("https://fonts.googleapis.com/css2?family=Ubuntu&display=swap");
+
+html {
+    /* variables */
+    --main-margin: 25px;
+    --list-margin: 5px;
+    --list-element-margin: 10px;
+
+    --main-padding: 10px;
+    --list-padding: 5px;
+
+    --border-radius: 10px;
+
+    /* bank millenium palette
+    --background-color: #590d22;
+    --text-color: #fff0f3;
+
+    --list-color: #800f2f;
+    --list-element-color: #a4133c;
+    */
+
+    /* a lovely red palette */
+    --background-color: #800016;
+    --text-color: #fff0f3;
+
+    --list-color: #AA001C;
+    --list-element-color: #D00023;
+}
+
+body {
+    background-color: var(--background-color);
+    color: var(--text-color);
+
+    font-family: "Ubuntu", sans-serif;
+    font-size: 1.1em;
+    
+    margin: var(--main-margin);
+}
+
+.align-right {
+    position: absolute;
+    margin: inherit;
+    right: 0;
+}
+
+/* option bar stuff */
+#option-bar {
+    background-color: var(--list-color);
+    color: var(--text-color);
+    
+    width: auto;
+    height: fit-content;
+
+    margin-bottom: var(--main-margin);
+    padding: var(--list-padding);
+    
+    border-radius: var(--border-radius);
+}
+
+#option-bar * {
+    background-color: var(--list-element-color);
+    color: var(--text-color);
+
+    border: none;
+    border-radius: var(--border-radius);
+
+    margin: var(--list-margin);
+    padding: var(--main-padding); 
+
+    font-size: inherit;
+}
+
+/* product table stuff */
+#current_products {
+    border: 1px;
+    width: 100%;
+}
+
+#current_products th {
+    background-color: var(--list-element-color);
+}
+
+#current_products tr {
+    background-color: var(--list-color);
+}
+.product-cell {
+    font: inherit;
+}
+.product-cell input {
+    border-radius: var(--border-radius);
+    border: 0;
+    width:90%;
+    font-size: 2em;
+    text-align: center;
+    margin-right: 5%;
+    margin-left: 5%;
+    color: var(--text-color);
+    background-color: var(--list-element-color);
+}
+
+.product-cell button {
+    border-radius: var(--border-radius);
+    border: 0;
+    width: 3vw;
+    height: 3vw;
+    font-size: 2vw;
+    margin-left: 0.5vw;
+    text-align: center;
+    color: var(--text-color);
+    background-color: var(--list-element-color);
+}

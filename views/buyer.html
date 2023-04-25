@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8"/>
+        <meta name="viewport" content="width=device-width, initial-scale=0.6"/>
+
+        <link rel="stylesheet" type="text/css" href="buyer.css"/>
+        <script src="https://js.stripe.com/v3/"></script>
+        <script src="buyer.js" defer></script>
+    
+        <title>Stanowisko (Buyer)</title>
+    </head>
+
+    <body>
+        <div id="products">
+            <!--
+            <div class="products-product">
+                <div class="products-product-title">Pączek</div>
+                <div class="products-product-price align-right"><b>Cena: </b>2,00 zł</div>
+                <div class="products-product-amount align-right"><b>Ilość: </b>1</div>
+            </div>
+
+            <div class="products-product">
+                <div class="products-product-title">Piernik</div>
+                <div class="products-product-price align-right"><b>Cena: </b>4,50 zł</div>
+                <div class="products-product-amount align-right"><b>Ilość: </b>3</div>
+            </div>
+
+            <div class="products-product">
+                <div class="products-product-title">Dostawa</div>
+                <div class="products-product-price align-right"><b>Cena: </b>0,50 zł</div>
+                <div class="products-product-amount align-right"><b>Ilość: </b>1</div>
+            </div>
+            -->
+        </div>
+
+        <div id="information">
+            <div id="information-header">SKLEPIK 1C</div><br/>
+
+            <b>Sklep wspiera płatności:</b> BLIK, Gotówka<br/>
+
+            W przypadku wybrania płatności BLIK, należy podać kod BLIK zawarty w aplikacji bankowej i potwierdzić go, naciskając podświetlony przycisk.<br/>
+                
+            <h2>Jak działa dostawa?</h2>
+
+            <ol id="information-delivery-info">
+                <li>Poproś o wybrany zakup z dostawą, z podanym czasem dostawy (np. początek lekcji 5) lub o np. 11:25 z podanym miejscem (np. salą 214).</li>
+                <li>Upewnij się, że sprzedawca wpisał Ciebie na listę dostaw.</li>
+                <li>O podanej godzinie spodziewaj się dostawy produktu!</li>
+            </ol>
+
+            Zastrzegamy prawo do odmówienia dostawy w przypadku np. zlecenia dostawy w środku lekcji do ucznia posiadającego w danym momencie lekcje.<br/><br/>
+            <b>Maksymalna godzina dostawy:</b> 12:45.<br/><br/><br/>
+                
+            <i>- heyn & bemxio &gt;w&lt;</i>
+            </div>
+        </div>
+        
+        <div id="pop-up">
+            <div id="pop-up-info">
+                <p id="pop-up-info-title"></p>
+                <p id="pop-up-info-content"></p>
+            </div>
+        </div>
+
+        <div id="total-price">
+            <div id="total-price-title" class="total-price-element">Suma:</div>
+            <div id="total-price-amount" class="total-price-element align-right">0,00 zł</div>
+        </div>
+    </body>
+</html>

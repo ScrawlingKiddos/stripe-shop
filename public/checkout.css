@@ -1,0 +1,71 @@
+@import url("https://fonts.googleapis.com/css2?family=Ubuntu&display=swap");
+
+html {
+    /* variables */
+    --main-margin: 25px;
+    --list-element-margin: 10px;
+
+    --border-radius: 10px;
+
+    /* bank millenium palette
+    --background-color: #590d22;
+    --text-color: #fff0f3;
+
+    --list-color: #800f2f;
+    --list-element-color: #a4133c;
+    */
+
+    /* a lovely red palette */
+    --background-color: #800016;
+    --text-color: #fff0f3;
+
+    --list-color: #AA001C;
+    --list-element-color: #D00023;
+}
+
+body {
+    background-color: var(--background-color);
+    color: var(--text-color);
+
+    font-family: "Ubuntu", sans-serif;
+}
+
+#payment-form {
+    position: absolute;
+    text-align: center;
+
+    top: 50%;
+    left: 50%;
+
+    transform: translate(-50%, -50%);
+
+    width: 50%;
+}
+
+#payment-element {
+    margin: var(--main-margin);
+}
+
+#payment-submit {
+    display: block;
+    cursor: pointer;
+
+    background: var(--list-element-color);
+    color: inherit;
+
+    font-family: inherit;
+    
+    border: 0;
+    border-radius: var(--border-radius);
+
+    margin: 0 auto;
+    padding: 12px 16px;
+
+    font-size: 1.5em;
+    font-weight: bold;
+}
+
+#payment-submit:disabled {
+    opacity: 0.5;
+    cursor: default;
+}

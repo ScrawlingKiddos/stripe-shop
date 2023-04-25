@@ -1,0 +1,214 @@
+@import url("https://fonts.googleapis.com/css2?family=Ubuntu&display=swap");
+
+html {
+    width: 100%;
+    height: 100%;
+
+    /* variables */
+    --main-margin: 25px;
+    --list-element-margin: 10px;
+
+    --border-radius: 10px;
+    
+    /* bank millenium palette
+    --background-color: #590d22;
+    --text-color: #fff0f3;
+
+    --list-color: #800f2f;
+    --list-element-color: #a4133c;
+    */
+
+    /* a lovely red palette */
+    --background-color: #800016;
+    --text-color: #fff0f3;
+
+    --list-color: #AA001C;
+    --list-element-color: #D00023;
+}
+
+body {
+    background-color: var(--background-color);
+    color: var(--text-color);
+
+    font-family: "Ubuntu", sans-serif;
+}
+
+.align-right {
+    position: absolute;
+    margin: inherit;
+    right: 0;
+}
+
+/* keyframes for animations */
+@keyframes fade-in {
+    from {
+        opacity: 0;
+    }
+
+    to {
+        opacity: 1;
+    }
+}
+
+@keyframes fade-out {
+    from {
+        opacity: 1;
+    }
+
+    to {
+        opacity: 0;
+    }
+}
+
+@keyframes background-dim-in {
+    from {
+        filter: brightness(100%) blur(0);
+    }
+
+    to {
+        filter: brightness(40%) blur(3px);
+    }
+}
+
+@keyframes background-dim-out {
+    from {
+        filter: brightness(40%) blur(3px);
+    }
+
+    to {
+        filter: brightness(100%) blur(0);
+    }
+}
+
+/* elements related to the products */
+#products {
+    background-color: var(--list-color);
+
+    border-radius: var(--border-radius);
+    margin: var(--main-margin);
+
+    position: absolute;
+
+    top: 0;
+    left: 0;
+    right: 40%;
+    bottom: 0;
+}
+
+.products-product {
+    background-color: var(--list-element-color);
+    position: relative;
+
+    border-radius: var(--border-radius);
+
+    margin: var(--list-element-margin);
+    padding: var(--list-element-margin);
+}
+
+.products-product-title {
+    font-size: 4em;
+}
+
+.products-product-price {
+    font-size: 2em;
+    top: 0;
+}
+
+.products-product-amount {
+    font-size: 2em;
+    bottom: 0;
+}
+
+/* elements related to the information tab */
+#information {
+    /* background-color: var(--list-color); */
+
+    margin: var(--main-margin);
+    position: absolute;
+
+    top: 0;
+    left: 60%;
+    right: 0;
+    bottom: fit-content;
+
+    text-align: center;
+    font-size: 1.5em;
+}
+
+#information-header {
+    font-size: 5em;
+    font-weight: bold;
+}
+
+#information-delivery-info {
+    font-weight: bold;
+}
+
+/* elements related to the total price */
+#total-price {
+    background-color: var(--list-color);
+
+    border-radius: var(--border-radius);
+    margin: var(--main-margin);
+
+    position: absolute;
+    
+    top: 81.5%;
+    left: 60%;
+    right: 0;
+    bottom: 0;
+}
+
+.total-price-element {
+    position: absolute;
+
+    margin: var(--list-element-margin);
+    padding: var(--list-element-margin);
+    
+    bottom: 0;
+}
+
+#total-price-title {
+    font-size: 2.5em;
+    font-weight: bold;
+}
+
+#total-price-amount {
+    font-size: 6em;
+}
+
+/* elements related to the pop-up box */
+#pop-up {
+    background-color: var(--list-color);
+
+    padding: var(--main-margin);
+    border-radius: var(--border-radius);
+
+    position: absolute;
+    text-align: center;
+
+    top: 50%;
+    left: 50%;
+    
+    transform: translate(-50%, -50%);
+    opacity: 0;
+}
+
+#pop-up-info {
+    font-size: 2em;
+
+    margin-left: var(--main-margin);
+    margin-right: var(--main-margin);
+
+    margin-top: var(--list-element-margin);
+    margin-bottom: var(--list-element-margin);
+}
+
+#pop-up-info * {
+    margin: inherit;
+}
+
+#pop-up-info-title {
+    font-size: 3em;
+    font-weight: bold;
+}
