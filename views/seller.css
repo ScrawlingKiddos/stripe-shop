@@ -20,11 +20,11 @@ html {
     */
 
     /* a lovely red palette */
-    --background-color: #800016;
+    --background-color: #C93756;
     --text-color: #fff0f3;
 
-    --list-color: #AA001C;
-    --list-element-color: #D00023;
+    --list-color: #DB5A6B;
+    --list-element-color: #F47983;
 }
 
 body {
