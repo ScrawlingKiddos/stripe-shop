@@ -325,7 +325,9 @@ class Seller {
             }
             if (msg.toString().startsWith("getTemplates")) {
                 ws.send('getTemplates ' + JSON.stringify(obj.presets));
-                obj.ws.send('getTemplates ' + JSON.stringify(obj.presets));
+                if (obj.ws) {
+                    obj.ws.send('getTemplates ' + JSON.stringify(obj.presets));
+                }
             }
             if (msg.toString().split(" ")[0].startsWith("renewProducts")) {
                 let incm = msg.toString().split(" ");
