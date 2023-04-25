@@ -38,83 +38,83 @@ app.use(sessions({
 
 const defaultItems = [
     {
-        name: "Ciasto z sercem zawijcie",
-        price: 400,
+        name: "Avocado stuffed Onigiri",
+        price: 350,
         quanity: 1,
         seller: null,
     },
     {
-        name: "3x Faworki",
-        price: 200,
+        name: "Salmon stuffed Onigiri",
+        price: 350,
         quanity: 1,
         seller: null,
     },
     {
-        name: "Babeczka",
-        price: 300,
+        name: "Onigiri",
+        price: 350,
         quanity: 1,
         seller: null,
     },
     {
-        name: "Kawa z mlekiem",
-        price: 300,
-        quanity: 1,
-        seller: null,
-    },
-    {
-        name: "Kawa bez mleka",
-        price: 200,
-        quanity: 1,
-        seller: null,
-    },
-    {
-        name: "Herbata czarna",
-        price: 300,
-        quanity: 1,
-        seller: null,
-    },
-    {
-        name: "Herbata walentynkowa",
-        price: 400,
-        quanity: 1,
-        seller: null,
-    },
-    {
-        name: "Większy kubek lub pojemnik",
+        name: "Soy sauce",
         price: 100,
         quanity: 1,
         seller: null,
     },
     {
-        name: "Dostawa",
-        price: 100,
-        quanity: 1,
-        seller: null,
-    },
-    {
-        name: "Rabat",
-        price: -100,
-        quanity: 1,
-        seller: null,
-    },
-    {
-        name: "Tarot",
+        name: "Green Tea",
         price: 400,
         quanity: 1,
         seller: null,
     },
     {
-        name: "Pączek",
+        name: "Ramune/Hata",
+        price: 800,
+        quanity: 1,
+        seller: null,
+    },
+    {
+        name: "Cheese in rice paper",
+        price: 200,
+        quanity: 1,
+        seller: null,
+    },
+    {
+        name: "PukuPuku",
+        price: 200,
+        quanity: 0.25,
+        seller: null,
+    },
+    {
+        name: "Sushi",
+        price: 250,
+        quanity: 1,
+        seller: null,
+    },
+    {
+        name: "Pocky",
+        price: 200,
+        quanity: 1,
+        seller: null,
+    },
+    {
+        name: "Ramen Buldak",
         price: 300,
         quanity: 1,
         seller: null,
     },
     {
-        name: "Ciasto \"Czerwony aksamit\"",
-        price: 400,
+        name: "Noodles",
+        price: 300,
         quanity: 1,
         seller: null,
-    }
+    },
+    {
+        name: "Delivery",
+        price: 100,
+        quanity: 1,
+        seller: null,
+    },
 ]
 
 class Product {
