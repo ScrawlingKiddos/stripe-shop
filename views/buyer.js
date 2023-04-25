@@ -24,7 +24,7 @@ const checkStatus = async () => {
             window.history.replaceState({}, document.title, "/");
             socket.send(`paymentSuccess ${paymentIntent.id}`);
 
-            showPopUp("Płatność udana!", "Płatność została zakończona pomyślnie. Dziękujemy za zakupy!");
+            showPopUp("Payment successfull!", "The payment has been completed successfully. Thank you for shopping with us!");
             
             break;
 
@@ -36,8 +36,8 @@ const checkStatus = async () => {
             socket.send("paymentFailed");
             break;
 
-        case "canceled":
-            showPopUp("Your payment was canceled.", "Try to pay again, or just ignore this message.");
+        case "cancelled":
+            showPopUp("Your payment was cancelled.", "Try to pay again, or just ignore this message.");
             break;
 
         default:
@@ -58,27 +58,38 @@ const renewProductsList = (products) => {
 
     for (let product of products) {
         const element = document.createElement("div");
-        element.classList.add("products-product");
 
         let price = (product.price / 100) * product.quanity;
         
         sum += price;
-        price = price.toLocaleString("pl-PL", {
-            minimumFractionDigits: 2 
-        });
+        price = price.toLocaleString("pl-PL", {minimumFractionDigits: 2});
 
         element.innerHTML = `
             <div class="products-product-title">${product.name}</div>
-            <div class="products-product-price align-right"><b>Cena: </b>${price} zł</div>
-            <div class="products-product-amount align-right"><b>Ilość: </b>${product.quanity}</div>
+            <div class="products-product-price align-right"><b>Price: </b>${price} PLN</div>
+            <div class="products-product-amount align-right"><b>Amount: </b>${product.quanity}</div>
         `;
 
+        element.classList.add("products-product");
         productList.appendChild(element);
     }
 
-    totalPrice.innerHTML = sum.toLocaleString("pl-PL", {
-        minimumFractionDigits: 2
-    }) + " zł";
+    totalPrice.innerHTML = sum.toLocaleString("pl-PL", {minimumFractionDigits: 2}) + " PLN";
+}
+
+const renewMenuList = (templates) => {
+    const menuList = document.getElementById("menu-info");
+
+    while (menuList.lastElementChild) {
+        menuList.removeChild(menuList.lastElementChild);
+    }
+
+    for (let template of templates) {
+        const element = document.createElement("li");
+
+        element.innerHTML = `${template.name} - <b>${template.price / 100}</b> PLN`;
+        menuList.appendChild(element);
+    }
 }
 
 const showPopUp = async (title, content) => {
@@ -119,7 +130,7 @@ socket.onmessage = (event) => {
         case "ID:":
             console.log(`Connection ID: ${event.data.split(" ")[1]}`);
             socket.send("getProducts");
-
+            socket.send("getTemplates");
             break;
         
         case "getProducts":
@@ -131,6 +142,11 @@ socket.onmessage = (event) => {
         case "paymentIntent":
             window.location.href = "/checkout.html?clientSecret=" + event.data.substring(14);
 
+            break;
+
+        case "getTemplates":
+            const templates = JSON.parse(event.data.substring(13));
+            renewMenuList(templates);
             break;
     }
 };

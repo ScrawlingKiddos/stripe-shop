@@ -20,11 +20,11 @@ html {
     */
 
     /* a lovely red palette */
-    --background-color: #800016;
+    --background-color: #C93756;
     --text-color: #fff0f3;
 
-    --list-color: #AA001C;
-    --list-element-color: #D00023;
+    --list-color: #DB5A6B;
+    --list-element-color: #F47983;
 }
 
 body {
@@ -71,16 +71,16 @@ body {
 }
 
 /* product table stuff */
-#current_products {
+.table {
     border: 1px;
     width: 100%;
 }
 
-#current_products th {
+.table th {
     background-color: var(--list-element-color);
 }
 
-#current_products tr {
+.table tr {
     background-color: var(--list-color);
 }
 .product-cell {

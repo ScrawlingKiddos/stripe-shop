@@ -10,8 +10,8 @@ const appearance = {
     labels: "floating",
 
     variables: {
-        colorPrimary: "#d00023",
-        colorBackground: "#aa001c",
+        colorPrimary: "#C93756",
+        colorBackground: "#DB5A6B",
 
         colorText: "#fff0f3",
         colorDanger: "#fff0f3",
@@ -67,7 +67,7 @@ const elements = stripe.elements({
     fonts: [
         {cssSrc: "https://fonts.googleapis.com/css2?family=Ubuntu&display=swap"}
     ],
-    locale: "pl"
+    //locale: "pl"
 });
 
 const paymentElement = elements.create("payment", {

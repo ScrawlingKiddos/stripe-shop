@@ -38,83 +38,83 @@ app.use(sessions({
 
 const defaultItems = [
     {
-        name: "Ciasto z sercem zawijcie",
-        price: 400,
+        name: "Avocado stuffed Onigiri",
+        price: 350,
         quanity: 1,
         seller: null,
     },
     {
-        name: "3x Faworki",
-        price: 200,
+        name: "Salmon stuffed Onigiri",
+        price: 350,
         quanity: 1,
         seller: null,
     },
     {
-        name: "Babeczka",
-        price: 300,
+        name: "Onigiri",
+        price: 350,
         quanity: 1,
         seller: null,
     },
     {
-        name: "Kawa z mlekiem",
-        price: 300,
-        quanity: 1,
-        seller: null,
-    },
-    {
-        name: "Kawa bez mleka",
-        price: 200,
-        quanity: 1,
-        seller: null,
-    },
-    {
-        name: "Herbata czarna",
-        price: 300,
-        quanity: 1,
-        seller: null,
-    },
-    {
-        name: "Herbata walentynkowa",
-        price: 400,
-        quanity: 1,
-        seller: null,
-    },
-    {
-        name: "Większy kubek lub pojemnik",
+        name: "Soy sauce",
         price: 100,
         quanity: 1,
         seller: null,
     },
     {
-        name: "Dostawa",
-        price: 100,
-        quanity: 1,
-        seller: null,
-    },
-    {
-        name: "Rabat",
-        price: -100,
-        quanity: 1,
-        seller: null,
-    },
-    {
-        name: "Tarot",
+        name: "Green Tea",
         price: 400,
         quanity: 1,
         seller: null,
     },
     {
-        name: "Pączek",
+        name: "Ramune/Hata",
+        price: 800,
+        quanity: 1,
+        seller: null,
+    },
+    {
+        name: "Cheese in rice paper",
+        price: 200,
+        quanity: 1,
+        seller: null,
+    },
+    {
+        name: "PukuPuku",
+        price: 200,
+        quanity: 0.25,
+        seller: null,
+    },
+    {
+        name: "Sushi",
+        price: 250,
+        quanity: 1,
+        seller: null,
+    },
+    {
+        name: "Pocky",
+        price: 200,
+        quanity: 1,
+        seller: null,
+    },
+    {
+        name: "Ramen Buldak",
         price: 300,
         quanity: 1,
         seller: null,
     },
     {
-        name: "Ciasto \"Czerwony aksamit\"",
-        price: 400,
+        name: "Noodles",
+        price: 300,
         quanity: 1,
         seller: null,
-    }
+    },
+    {
+        name: "Delivery",
+        price: 100,
+        quanity: 1,
+        seller: null,
+    },
 ]
 
 class Product {
@@ -144,6 +144,7 @@ class Seller {
     constructor(sessionId) {
         this.sessionId = sessionId;
         this.ownWs = [];
+        this.presets = defaultItems;
         this.ws = null;
         this.products = [];
         this.db = null;
@@ -191,8 +192,13 @@ class Seller {
     reloadPages() {
         this.ownWsSends("reloadPages");
         if (this.ws) {
+            this.sendTemplates(this.ws);
             this.sendProducts(this.ws);
         }
+    }
+
+    sendTemplates(ws) {
+        ws.send("getTemplates " + JSON.stringify(this.presets));
     }
 
     sendProducts(ws) {
@@ -234,7 +240,10 @@ class Seller {
         let obj2 = this;
         this.ws.on('message', function (msg, obj = obj2) {
             if (msg.toString() === "getProducts") {
-                obj.sendProducts(this);
+                obj.sendProducts(obj2.ws);
+            }
+            if (msg.toString() === "getTemplates") {
+                obj.sendTemplates(obj2.ws);
             }
             if (msg.toString() === "paymentFailed") {
                 obj.ownWsSends("renewPayment");
@@ -309,8 +318,16 @@ class Seller {
             if (msg.toString() === "getProducts") {
                 obj.sendProducts(ws);
             }
+            if (msg.toString().startsWith("renewTemplates")) {
+                let incm = msg.toString().split(" ");
+                let data = JSON.parse(incm.splice(1, incm.length).join(' '));
+                obj.presets = data;
+            }
             if (msg.toString().startsWith("getTemplates")) {
-                ws.send('getTemplates ' + JSON.stringify(defaultItems));
+                ws.send('getTemplates ' + JSON.stringify(obj.presets));
+                if (obj.ws) {
+                    obj.ws.send('getTemplates ' + JSON.stringify(obj.presets));
+                }
             }
             if (msg.toString().split(" ")[0].startsWith("renewProducts")) {
                 let incm = msg.toString().split(" ");

@@ -1,5 +1,7 @@
 let socket;
 let products = [];
+let templates_global = [];
+let isTemplates = false;
 let ID = null;
 function reloadPages() {
     socket.send("getProducts");
@@ -37,6 +39,7 @@ window.onload = function() {
             case "getTemplates":
                 let templates = JSON.parse(event.data.toString().substring(12));
                 console.log(templates)
+                templates_global = templates;
                 let templatesSelect = document.getElementById("templates")
                 templatesSelect.innerHTML="";
                 let def = document.createElement("option")
@@ -49,6 +52,7 @@ window.onload = function() {
                     option.value = JSON.stringify(item);
                     templatesSelect.appendChild(option);
                 })
+                renewTemplatesList();
                 break;
             case "noBuyerWs":
                 socket.send("buyerws "+prompt("No buyer connected! Please provide id of the buyer to connect to: "));
@@ -62,12 +66,20 @@ window.onload = function() {
         }
     }
     document.getElementById("add").addEventListener("click", function(e) {
-        let templates = document.getElementById("templates")
-        let resp = JSON.parse(templates.options[templates.selectedIndex].value)
-        products.push(resp);
-        console.log(products);
-        socket.send("renewProducts "+JSON.stringify(products));
-        socket.send("reloadPages");
+        if(!isTemplates) {
+            let templates = document.getElementById("templates")
+            let resp = JSON.parse(templates.options[templates.selectedIndex].value)
+            products.push(resp);
+            console.log(products);
+            socket.send("renewProducts "+JSON.stringify(products));
+            socket.send("reloadPages");
+        } else {
+            let templates = document.getElementById("templates")
+            let resp = JSON.parse(templates.options[templates.selectedIndex].value)
+            templates_global.push(resp)
+            socket.send("renewTemplates "+JSON.stringify(templates_global));
+            socket.send("reloadPages");
+        }
     });
     document.getElementById("updateBuyer").onclick = function(e) {
         socket.send("renewProducts "+JSON.stringify(products));
@@ -84,6 +96,19 @@ window.onload = function() {
         let confirm1 = confirm(`Take ${sum/100}zł from the buyer and confirm by clicking yes.`)
         if (confirm1) {
             socket.send("paymentSuccess")
+        }
+    }
+    document.getElementById("change_table").onclick = function(e) {
+        isTemplates = !isTemplates;
+        if (isTemplates) {
+            document.getElementById("current_products").style.display = "none";
+            document.getElementById("modify_presets").style.display = "table";
+            document.getElementById("change_table").innerText = "Zmień na kasjera";
+        }
+        else {
+            document.getElementById("current_products").style.display = "table";
+            document.getElementById("modify_presets").style.display = "none";
+            document.getElementById("change_table").innerText = "Zmień na menu";
         }
     }
 
@@ -141,6 +166,69 @@ function renewProductsList() {
         remove.addEventListener("click", function(e) {
             products = products.filter(function(item1) {return item1 !== item})
             socket.send("renewProducts "+JSON.stringify(products));
+            socket.send("reloadPages");
+        })
+        td4.appendChild(remove);
+        tr.appendChild(td4);
+        for (let td of tr.children) {
+            td.classList.add("product-cell")
+        }
+        table.appendChild(tr);
+    }
+}
+
+function renewTemplatesList() {
+    const table = document.getElementById("modify_presets")
+    console.log(templates_global);
+    table.innerHTML = "<tr><th>Nazwa (menu)</th><th>Cena (gr)</th><th>Ilość</th><th>&nbsp;</th></tr>";
+    for (let item of templates_global) {
+        let index = templates_global.indexOf(item);
+        let tr = document.createElement("tr");
+        let td1 = document.createElement("td");
+
+        let editable1 = document.createElement("input");
+        editable1.type = "text";
+        editable1.value = item.name;
+        editable1.onchange = function() {
+            item.name = editable1.value
+            socket.send("renewTemplates "+JSON.stringify(templates_global));
+            socket.send("reloadPages");
+        }
+        td1.appendChild(editable1);
+
+        let editable2 = document.createElement("input");
+        editable2.type = "number";
+        editable2.value = item.price;
+        editable2.onchange = function(e) {
+            item.price = parseInt(editable2.value)
+            socket.send("renewTemplates "+JSON.stringify(templates_global));
+            socket.send("reloadPages");
+        }
+        let td2 = document.createElement("td");
+        td2.appendChild(editable2);
+
+        let editable3 = document.createElement("input");
+        editable3.type = "number";
+        editable3.value = item.quanity;
+        editable3.onchange = function(e) {
+            item.quanity = parseInt(editable3.value)
+            socket.send("renewTemplates "+JSON.stringify(templates_global));
+            socket.send("reloadPages");
+        }
+        let td3 = document.createElement("td");
+        td3.appendChild(editable3);
+        tr.appendChild(td1);
+        tr.appendChild(td2);
+        tr.appendChild(td3);
+
+        let td4 = document.createElement("td");
+        let remove = document.createElement("button");
+        remove.name = "Remove";
+        remove.value = 'Remove';
+        remove.innerText='X';
+        remove.addEventListener("click", function(e) {
+            templates_global = templates_global.filter(function(item1) {return item1 !== item})
+            socket.send("renewTemplates "+JSON.stringify(templates_global));
             socket.send("reloadPages");
         })
         td4.appendChild(remove);
