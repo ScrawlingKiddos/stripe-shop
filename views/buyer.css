@@ -204,6 +204,11 @@ body {
     margin-bottom: var(--list-element-margin);
 }
 
+#menu-info {
+    text-align: left;
+    padding-left: 30px;
+}
+
 #pop-up-info * {
     margin: inherit;
 }

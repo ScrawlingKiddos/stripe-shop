@@ -67,7 +67,7 @@ const elements = stripe.elements({
     fonts: [
         {cssSrc: "https://fonts.googleapis.com/css2?family=Ubuntu&display=swap"}
     ],
-    locale: "pl"
+    //locale: "pl"
 });
 
 const paymentElement = elements.create("payment", {
