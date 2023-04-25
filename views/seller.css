@@ -71,16 +71,16 @@ body {
 }
 
 /* product table stuff */
-#current_products {
+.table {
     border: 1px;
     width: 100%;
 }
 
-#current_products th {
+.table th {
     background-color: var(--list-element-color);
 }
 
-#current_products tr {
+.table tr {
     background-color: var(--list-color);
 }
 .product-cell {

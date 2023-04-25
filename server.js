@@ -144,6 +144,7 @@ class Seller {
     constructor(sessionId) {
         this.sessionId = sessionId;
         this.ownWs = [];
+        this.presets = defaultItems;
         this.ws = null;
         this.products = [];
         this.db = null;
@@ -191,8 +192,13 @@ class Seller {
     reloadPages() {
         this.ownWsSends("reloadPages");
         if (this.ws) {
+            this.sendTemplates(this.ws);
             this.sendProducts(this.ws);
         }
+    }
+
+    sendTemplates(ws) {
+        ws.send("getTemplates " + JSON.stringify(this.presets));
     }
 
     sendProducts(ws) {
@@ -234,7 +240,10 @@ class Seller {
         let obj2 = this;
         this.ws.on('message', function (msg, obj = obj2) {
             if (msg.toString() === "getProducts") {
-                obj.sendProducts(this);
+                obj.sendProducts(obj2.ws);
+            }
+            if (msg.toString() === "getTemplates") {
+                obj.sendTemplates(obj2.ws);
             }
             if (msg.toString() === "paymentFailed") {
                 obj.ownWsSends("renewPayment");
@@ -309,8 +318,14 @@ class Seller {
             if (msg.toString() === "getProducts") {
                 obj.sendProducts(ws);
             }
+            if (msg.toString().startsWith("renewTemplates")) {
+                let incm = msg.toString().split(" ");
+                let data = JSON.parse(incm.splice(1, incm.length).join(' '));
+                obj.presets = data;
+            }
             if (msg.toString().startsWith("getTemplates")) {
-                ws.send('getTemplates ' + JSON.stringify(defaultItems));
+                ws.send('getTemplates ' + JSON.stringify(obj.presets));
+                obj.ws.send('getTemplates ' + JSON.stringify(obj.presets));
             }
             if (msg.toString().split(" ")[0].startsWith("renewProducts")) {
                 let incm = msg.toString().split(" ");

@@ -81,6 +81,21 @@ const renewProductsList = (products) => {
     }) + " zł";
 }
 
+const renewMenuList = (templates) => {
+    const menuList = document.getElementById("menu-info");
+
+    while (menuList.lastElementChild) {
+        menuList.removeChild(menuList.lastElementChild);
+    }
+
+    for (let template of templates) {
+        const element = document.createElement("li");
+        element.innerHTML = `${template.name} for ${template.price/100} zł`;
+
+        menuList.appendChild(element);
+    }
+}
+
 const showPopUp = async (title, content) => {
     const popUp = document.getElementById("pop-up");
     const dimElements = document.querySelectorAll("body > *:not(#pop-up)");
@@ -119,7 +134,7 @@ socket.onmessage = (event) => {
         case "ID:":
             console.log(`Connection ID: ${event.data.split(" ")[1]}`);
             socket.send("getProducts");
-
+            socket.send("getTemplates");
             break;
         
         case "getProducts":
@@ -132,7 +147,11 @@ socket.onmessage = (event) => {
             window.location.href = "/checkout.html?clientSecret=" + event.data.substring(14);
 
             break;
+
+        case "getTemplates":
+            const templates = JSON.parse(event.data.substring(13));
+            renewMenuList(templates);
+            break;
     }
 };
-
 checkStatus();
